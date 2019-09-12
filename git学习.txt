@@ -14,3 +14,6 @@ A:使用git每次修改文件，首先保证把文件add到缓存区，通常把
 	一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态
 11.git checkout -- file命令中的--很重要，没有--，就变成了“切换到另一个分支”的命令
 12.删除文件 本地命令 rm <文件名> 删除工作区文件 ，需同步把版本库删除 git rm <文件名> 并且git commit -m "删除说明"  其实删除也是一个修改操作 
+13.要关联一个远程库，使用命令git remote add origin git@github.com:<远程仓库账户名>/<远程仓库名称>.git；例如 ：git remote add origin git@github.com:yanakai/study.git
+	关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
+	此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
