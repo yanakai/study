@@ -19,3 +19,10 @@ A:使用git每次修改文件，首先保证把文件add到缓存区，通常把
 	关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
 	此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
 14.从远程库克隆 git clone git@github.com:<远程仓库账户名>/<远程仓库名称>.git
+15.创建分支 git checkout -b <分支名称>  然后切换到分支库  
+	git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：git branch <分支名称> （创建指定分支）和git checkout <分支名称>（切换到指定分支）
+	git branch命令会列出所有分支，当前分支前面会标一个*号
+	git branch -d <分支名称> 删除指定的分支
+	git switch -c <分支名称> 创建指定分支并切换到此分支 同 git checkout -b <分支名称>
+	git switch <分支名称>	切换到指定分支    同 git checkout <分支名称>
+16.git merge命令用于合并指定分支到当前分支 例如：git merge dev 命令dev分支文件合并到当前分支
