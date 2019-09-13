@@ -47,14 +47,21 @@ A:使用git每次修改文件，首先保证把文件add到缓存区，通常把
 	在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
 	建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
 	从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
-19. 标签管理
+19. 标签管理：
 	命令git tag <tagname>用于新建一个标签，默认为HEAD，也可以指定一个commit id；
 	命令git tag -a <tagname> -m "blablabla..."可以指定标签信息；
 	命令git tag可以查看所有标签。
-20. 操作标签
+20. 操作标签：
 	命令git push origin <tagname>可以推送一个本地标签；
 	命令git push origin --tags可以推送全部未推送过的本地标签；
 	命令git tag -d <tagname>可以删除一个本地标签；
 	命令git push origin :refs/tags/<tagname>可以删除一个远程标签。
+21. git比较本地仓库和远程仓库的差异：
+	更新本地的远程分支：
+		git fetch origin
+	本地与远程的差集 :（显示远程有而本地没有的commit信息）
+		git log master..origin/master
+	统计文件的改动
+		git diff --stat master origin/master
 	
 
