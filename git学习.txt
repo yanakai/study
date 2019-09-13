@@ -57,6 +57,7 @@ A:使用git每次修改文件，首先保证把文件add到缓存区，通常把
 	命令git tag -d <tagname>可以删除一个本地标签；
 	命令git push origin :refs/tags/<tagname>可以删除一个远程标签。
 21. git比较本地仓库和远程仓库的差异：
+	当前在 master 分支，那么先更新下 git fetch 然后比较 git diff origin master
 	更新本地的远程分支：
 		git fetch origin
 	本地与远程的差集 :（显示远程有而本地没有的commit信息）
