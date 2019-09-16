@@ -1,5 +1,6 @@
 总结：
 A:使用git每次修改文件，首先保证把文件add到缓存区，通常把每次修改add到暂存区，而后统一 git commit到本地分支仓库或者远程仓库 
+一、生成本地.ssh文件命令：ssh-keygen -t rsa -C  youremail@example.com 命令之后三次回车在c盘的用户目录生成.ssh文件目录
 1.初始化仓库：git init
 2.加入到缓存去：git add <文件名>
 3.提交到仓库：git commit -m '提交说明'
@@ -34,3 +35,42 @@ A:使用git每次修改文件，首先保证把文件add到缓存区，通常把
 	合并某分支到当前分支：git merge <name>
 	删除分支：git branch -d <name>
 16.git merge命令用于合并指定分支到当前分支 例如：git merge dev 命令dev分支文件合并到当前分支
+	当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。
+	解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。
+	用git log --graph命令可以看到分支合并图。
+17.分支管理策略：
+	通常，合并分支时，如果可能，Git会用Fastforward模式，但这种模式下，删除分支后，会丢掉分支信息。
+	如果要强制禁用Fastforward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。
+	下面我们实战一下--no-ff方式的git merge：git merge --no-ff -m "提交说明" dev  因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去
+	分支策略：
+	在实际开发中，我们应该按照几个基本原则进行分支管理：
+	首先，master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
+	那在哪干活呢？干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；
+	你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
+	合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+18. 多人协助
+	查看远程库信息，使用git remote -v；
+	本地新建的分支如果不推送到远程，对其他人就是不可见的；
+	从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+	在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+	建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+	从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
+19. 标签管理：
+	命令git tag <tagname>用于新建一个标签，默认为HEAD，也可以指定一个commit id；
+	命令git tag -a <tagname> -m "blablabla..."可以指定标签信息；
+	命令git tag可以查看所有标签。
+20. 操作标签：
+	命令git push origin <tagname>可以推送一个本地标签；
+	命令git push origin --tags可以推送全部未推送过的本地标签；
+	命令git tag -d <tagname>可以删除一个本地标签；
+	命令git push origin :refs/tags/<tagname>可以删除一个远程标签。
+21. git比较本地仓库和远程仓库的差异：
+	当前在 master 分支，那么先更新下 git fetch 然后比较 git diff origin master
+	更新本地的远程分支：
+		git fetch origin
+	本地与远程的差集 :（显示远程有而本地没有的commit信息）
+		git log master..origin/master
+	统计文件的改动
+		git diff --stat master origin/master
+	
+
