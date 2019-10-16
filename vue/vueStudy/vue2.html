@@ -56,11 +56,68 @@
 	<div id="app8">
 		{{ message | capitalize }}
 	</div>
+	<!--  v-if 指令将根据表达式 seen 的值(true 或 false )来决定是否插入 p 元素 -->
+	<div id="app9">
+		<p v-if="seen">你能看到我</p>
+		<template v-if="ok">
+			<h1>Hello Vue</h1>
+		</template>
+	</div>
+	<!-- 可以用 v-else 指令给 v-if 添加一个 "else" 块 -->
+	<div id="app10">
+		<div v-if="Math.random() > 0.5">
+			Sorry
+		</div>
+		<div v-else>
+			Not sorry
+		</div>
+	</div>
+	<!-- v-else-if 在 2.1.0 新增，顾名思义，用作 v-if 的 else-if 块。可以链式的多次使用 -->
+	<div id="app11">
+		<div v-if="type === 'A'">
+			A
+		</div>
+		<div v-else-if="type === 'B'">
+			B
+		</div>
+		<div v-else-if="type === 'C'">
+			C
+		</div>
+		<div v-else>
+			Not A/B/C
+		</div>
+	</div>
+	<!-- 我们也可以使用 v-show 指令来根据条件展示元素： -->
+	<div id="app12">
+		<h1 v-show="ok">Hello!</h1>
+	</div>
 	<script type="text/javascript">
-		var app8 = new Vue({
-			el: 'app8',
+		var app12 = new Vue({
+			el: '#app12',
 			data: {
-				message: 'vue'
+				ok: true
+			}
+		});
+		var app11 = new Vue({
+			el: '#app11',
+			data: {
+				type: 'B'
+			}
+		});
+		var app10 = new Vue({
+			el: '#app10'
+		});
+		var app9 = new Vue({
+			el: '#app9',
+			data: {
+				seen: true,
+				ok: true
+			}
+		});
+		var app8 = new Vue({
+			el: '#app8',
+			data: {
+				message: 'hello'
 			},
 			filters: {
 				capitalize: function(value){
