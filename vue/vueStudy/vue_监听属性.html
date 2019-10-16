@@ -14,7 +14,45 @@
 		<p style = "font-size:25px;">计数器: {{ counter }}</p>
 		<button @click = "counter++" style = "font-size:25px;">点我</button>
 	</div>
+	<!-- 
+		以下实例进行千米与米之间的换算：
+		以下代码中我们创建了两个输入框，data 属性中， kilometers 和 meters 初始值都为 0。watch 对象创建了两个方法 kilometers 和 meters。
+		当我们再输入框输入数据时，watch 会实时监听数据变化并改变自身的值。可以看下如下视频演示：
+	-->
+	<div id = "app2">
+		千米 : <input type = "text" v-model = "kilometers">
+		米 : <input type = "text" v-model = "meters">
+	</div>
+	<p id="info"></p>
 	<script type="text/javascript">
+		var app2 = new Vue({
+			el: '#app2',
+			data: {
+				kilometers : 0,
+        		meters:0
+			},
+			methods: {
+			},
+			computed :{
+			},
+			watch : {
+				kilometers:function(val) {
+					this.kilometers = val;
+					this.meters = this.kilometers * 1000
+				},
+				meters : function (val) {
+					this.kilometers = val/ 1000;
+					this.meters = val;
+				}
+			}
+		});
+		// $watch 是一个实例方法
+		app2.$watch('kilometers', function (newValue, oldValue) {
+			// 这个回调将在 app2.kilometers 改变后调用
+			document.getElementById ("info").innerHTML = "修改前值为: " + oldValue + "，修改后值为: " + newValue;
+		});
+
+
 		var app = new Vue({
 			el: '#app',
 			data: {
@@ -23,7 +61,7 @@
 		});
 		app.$watch('counter',function (nval, oval){
 			alert('计数器值的变化 :' + oval + ' 变为 ' + nval + '!');
-		})
+		});
 	</script>
 </body>
 </html>
