@@ -5,7 +5,8 @@
     <el-table :data = 'article_data' border justify="center" style="width:100%">
       <el-table-column prop="articleTitle" label="文章标题"></el-table-column>
       <el-table-column prop="articleAbstract" label="文章摘要"></el-table-column>
-       <el-table-column prop="releaseTime" label="发布时间"></el-table-column>
+      <el-table-column prop="releaseTime" label="发布时间"></el-table-column>
+      <el-table-column prop="releaseName" label="发布人"></el-table-column>
     </el-table>
  </div>
 </template>
