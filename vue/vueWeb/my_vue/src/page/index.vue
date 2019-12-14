@@ -2,41 +2,46 @@
     <div>
        <el-container>
            <el-header >
+                <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+                    <el-radio-button :label="false">展开</el-radio-button>
+                    <el-radio-button :label="true">收起</el-radio-button>
+                </el-radio-group>
            </el-header>
             <el-container>
                 <el-aside width="200px" >
                     <el-menu
-                        default-active="1"
+                        default-active="$route.path"
+                        @open="handleOpen"  
+                        @close="handleClose"
                         class="el-menu-vertical-demo"
-                        router 
+                        router  unique-opened	
+                        :collapse="isCollapse"
+                        :default-openeds=["1"]
                         background-color="#545c64"
                         text-color="#fff"
                         active-text-color="#ffd04b">
                         <el-submenu index="1">
                             <template slot="title">
-                            <i class="el-icon-menu"></i>
-                            <span>系统管理</span>
+                                <i class="el-icon-document"></i>
+                                <span>文章管理</span>
+                            </template>
+                            <el-menu-item  index="/article/list">文章管理</el-menu-item>
+                            <el-menu-item index="/column/list">栏目管理</el-menu-item>
+                        </el-submenu>
+                        <el-submenu index="2">
+                            <template slot="title">
+                                <i class="el-icon-menu"></i>
+                                <span>系统管理</span>
                             </template>
                             <el-menu-item  index="/user/list">用户管理</el-menu-item>
                             <el-menu-item index="/role/list">角色管理</el-menu-item>
                             <el-menu-item index="/menu/list">菜单管理</el-menu-item>
                             <el-submenu index="#">
-                            <template slot="title">选项4</template>
-                            <el-menu-item index="1-4-1">选项1</el-menu-item>
+                                <template slot="title">选项4</template>
+                                <el-menu-item index="#">选项1</el-menu-item>
                             </el-submenu>
                         </el-submenu>
-                        <el-menu-item index="2">
-                            <i class="el-icon-menu"></i>
-                            <span slot="title">导航二</span>
-                        </el-menu-item>
-                        <el-menu-item index="3" disabled>
-                            <i class="el-icon-document"></i>
-                            <span slot="title">导航三</span>
-                        </el-menu-item>
-                        <el-menu-item index="4">
-                            <i class="el-icon-setting"></i>
-                            <span slot="title">导航四</span>
-                        </el-menu-item>
+                        
                     </el-menu>
                 </el-aside>
                 <el-main>
@@ -75,11 +80,15 @@
         padding: 0;
         z-index: 1000;
     }
+    .el-main {
+        padding: 60px 0px 5px 0px;
+    }
 </style>
 <script>
     export default {
         data () {
             return {
+                isCollapse: false
             }
         },
          methods:{
@@ -87,6 +96,12 @@
             let _this = this;
             _this.currentMenu ='/${this.$route.path.split('/')[1]}'
             console.log('/${this.$route.path.split('/')[1]}')
+            },
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
             }
         },
         watch:{
