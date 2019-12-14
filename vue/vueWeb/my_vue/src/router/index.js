@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import CopClass from '@/components/EnterPage'
 import userList from '@/components/UserList'
+import roleList from '@/components/RoleList'
 import Index from '@/page/index'
 import Main from '@/page/main'
 
@@ -28,6 +29,10 @@ export default new Router({
         path: '/user/list/',
         name: 'userDataList',
         component: userList
+      },{
+        path: '/role/list/',
+        name: 'roleDataList',
+        component: roleList
       }]
     }
   ]
