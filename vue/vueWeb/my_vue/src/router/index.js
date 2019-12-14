@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import CopClass from '@/components/EnterPage'
-import userList from '@/components/UserList'
-import roleList from '@/components/RoleList'
+import userList from '@/page/UserList'
+import roleList from '@/page/RoleList'
 import Index from '@/page/index'
 import Main from '@/page/main'
 

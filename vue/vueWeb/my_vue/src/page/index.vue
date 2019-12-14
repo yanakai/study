@@ -16,7 +16,7 @@
                         class="el-menu-vertical-demo"
                         router  unique-opened	
                         :collapse="isCollapse"
-                        :default-openeds=["1"]
+                        :default-openeds="open_list"
                         background-color="#545c64"
                         text-color="#fff"
                         active-text-color="#ffd04b">
@@ -88,7 +88,8 @@
     export default {
         data () {
             return {
-                isCollapse: false
+                isCollapse: false,
+                open_list: ["1"]
             }
         },
          methods:{
