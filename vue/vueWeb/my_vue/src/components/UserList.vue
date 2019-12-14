@@ -1,15 +1,19 @@
 <template>
     <div>
+        <!-- highlight-current-row:设置选中高亮 -->
+        <!-- :header-cell-style="tableHeaderColor":设置表格头部样式 -->
+        <!-- :row-style="tableRowStyle" :设置表格行样式 -->
         <el-table 
             :data="userData"  
-            :row-style="tableRowStyle"
+            highlight-current-row 
+            :row-style="tableRowStyle" 
             :header-cell-style="tableHeaderColor"
             style="width:100%" 
             border >
 
             <el-table-column label="序号" align="center" width="70%">
-                 <template scope="index">
-                    <span>{{index.$index + 1}}</span>
+                 <template slot-scope="scope">
+                    <span>{{scope.$index + 1}}</span>
                 </template>
             </el-table-column>
             <el-table-column prop="userName" label="登录用户" align="center"></el-table-column>
@@ -23,9 +27,9 @@
                 </template>
             </el-table-column>
             <el-table-column  label="操作" align="center">
-                <template scope="scope">
-                    <el-button size="small" type="primary" @click="edit(scope.$index, scope.row)">编辑</el-button>
-                    <el-button size="small" type="primary" @click="delete(scope.$index, scope.row)">删除</el-button>
+                <template slot-scope="scope">
+                    <el-button size="small" round icon="el-icon-edit" type="warning" @click="edit(scope.$index, scope.row)">编辑</el-button>
+                    <el-button size="small" round icon="el-icon-delete" type="danger" @click="delete(scope.$index, scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -74,10 +78,10 @@ export default {
 <style>
     /*表格每一行被hover时的样式设置*/
     .el-table--enable-row-hover .el-table__body tr:hover>td {
-        background-color: rgba(141, 214, 217, .4);;
+        background-color: rgba(141, 214, 217, .4);
     }
     /*表格某一行被点击时的样式*/
     .el-table__body tr.current-row>td {
-        background-color: rgba(230, 14, 14, 0.4);;
+        background-color: rgba(15, 232, 240, 0.4);
     }
 </style>
