@@ -4,7 +4,6 @@ import CopClass from '@/components/EnterPage'
 import userList from '@/components/UserList'
 import Index from '@/page/index'
 import Main from '@/page/main'
-import User from '@/page/user'
 
 Vue.use(Router)
 
@@ -16,13 +15,9 @@ export default new Router({
       component: CopClass
     },
     {
-      path: "/user/list/",
-      name: "userDataList",
-      component: userList
-    },
-    {
       path: "/",
       component: Index,
+      redirect:"userList",//重定向，第一次进入就进入userList，不添加的话第一次进入右侧是空白
       // 嵌套路由
       children: [{
         // 这里不设置值，是把main作为默认页面
@@ -30,9 +25,9 @@ export default new Router({
         name: 'Main',
         component: Main
       },{
-        path: '/user',
-        name: 'User',
-        component: User
+        path: '/user/list/',
+        name: 'userDataList',
+        component: userList
       }]
     }
   ]
