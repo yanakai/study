@@ -13,10 +13,19 @@ export default {
 </script>
 
 <style>
+*{
+  padding: 0;
+  margin: 0;
+}
+html,body{
+  width: 100%;
+  height: 100%;
+}
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    height: 100%;
   }
   /* 初始化表格操作按钮的大小及样式 */
   .el-button--small, .el-button--small.is-round {
