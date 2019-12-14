@@ -17,7 +17,7 @@ export default new Router({
     {
       path: "/",
       component: Index,
-      redirect:"userList",//重定向，第一次进入就进入userList，不添加的话第一次进入右侧是空白
+      redirect:"Main",//重定向，第一次进入就进入Main，不添加的话第一次进入右侧是空白
       // 嵌套路由
       children: [{
         // 这里不设置值，是把main作为默认页面

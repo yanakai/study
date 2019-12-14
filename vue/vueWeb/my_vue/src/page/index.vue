@@ -6,27 +6,21 @@
             <el-container>
                 <el-aside width="200px" >
                     <el-menu
-                        default-active="2"
+                        default-active="1"
                         class="el-menu-vertical-demo"
-                        @open="handleOpen"
-                        @close="handleClose"
+                        router 
                         background-color="#545c64"
                         text-color="#fff"
                         active-text-color="#ffd04b">
                         <el-submenu index="1">
                             <template slot="title">
-                            <i class="el-icon-location"></i>
-                            <span>导航一</span>
+                            <i class="el-icon-menu"></i>
+                            <span>系统管理</span>
                             </template>
-                            <el-menu-item-group>
-                            <template slot="title">分组一</template>
-                            <el-menu-item index="1-1">选项1</el-menu-item>
-                            <el-menu-item index="1-2">选项2</el-menu-item>
-                            </el-menu-item-group>
-                            <el-menu-item-group title="分组2">
-                            <el-menu-item index="1-3">选项3</el-menu-item>
-                            </el-menu-item-group>
-                            <el-submenu index="1-4">
+                            <el-menu-item  index="/user/list">用户管理</el-menu-item>
+                            <el-menu-item index="/role/list">角色管理</el-menu-item>
+                            <el-menu-item index="/menu/list">菜单管理</el-menu-item>
+                            <el-submenu index="#">
                             <template slot="title">选项4</template>
                             <el-menu-item index="1-4-1">选项1</el-menu-item>
                             </el-submenu>
@@ -83,5 +77,24 @@
     }
 </style>
 <script>
+    export default {
+        data () {
+            return {
+            }
+        },
+         methods:{
+            getUrl(){
+            let _this = this;
+            _this.currentMenu ='/${this.$route.path.split('/')[1]}'
+            console.log('/${this.$route.path.split('/')[1]}')
+            }
+        },
+        watch:{
+            $route(to,from){
+            console.log(to.path);
+            this.getUrl();
+            }
+        }
+   }
 
 </script>
