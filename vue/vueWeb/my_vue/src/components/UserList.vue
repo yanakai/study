@@ -1,11 +1,33 @@
 <template>
     <div>
-        <el-table :data="userData" border justify="center" style="width:100%">
-            <el-table-column prop="userName" label="登录用户"></el-table-column>
-            <el-table-column prop="trueName" label="真实姓名"></el-table-column>
-            <el-table-column prop="email" label="邮箱"></el-table-column>
-            <el-table-column prop="phoneNumber" label="手机号"></el-table-column>
-            <el-table-column prop="sex" label="性别"></el-table-column>
+        <el-table 
+            :data="userData"  
+            :row-style="tableRowStyle"
+            :header-cell-style="tableHeaderColor"
+            style="width:100%" 
+            border >
+
+            <el-table-column label="序号" align="center" width="70%">
+                 <template scope="index">
+                    <span>{{index.$index + 1}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column prop="userName" label="登录用户" align="center"></el-table-column>
+            <el-table-column prop="trueName" label="真实姓名" align="center"></el-table-column>
+            <el-table-column prop="email" label="邮箱" align="center"></el-table-column>
+            <el-table-column prop="phoneNumber" label="手机号" align="center"></el-table-column>
+            <el-table-column prop="sex" label="性别" align="center">
+                 <template slot-scope="scope">
+                   <span v-if="scope.row.sex=='0'">男</span>
+                   <span v-if="scope.row.sex=='1'">女</span>
+                </template>
+            </el-table-column>
+            <el-table-column  label="操作" align="center">
+                <template scope="scope">
+                    <el-button size="small" type="primary" @click="edit(scope.$index, scope.row)">编辑</el-button>
+                    <el-button size="small" type="primary" @click="delete(scope.$index, scope.row)">删除</el-button>
+                </template>
+            </el-table-column>
         </el-table>
     </div>
 </template>
@@ -13,12 +35,13 @@
 import Vue from "vue"
 export default {
     name: "userDataList",
+    //数据
     data(){
         return {
             userData:[]
         }
     },
-    //在这里页面初始化时调用ajax请求方法
+    //在这里页面初始化时调用ajax请求方法 初始化方法
     created(){
       this.initUser();
     },
@@ -31,7 +54,30 @@ export default {
             }).catch((error)=>{
                 console.log("error!"+error);
             });
+        },
+        //表格编辑方法
+        edit: function(){
+            alert("78899");
+        },
+        //设置表格行的样式
+        tableRowStyle({row,rowIndex}){
+            return 'background-color:pink;color:#fff;font-size:7px;'
+        },
+        //设置表头行的样式
+        tableHeaderColor({row,column,rowIndex,columnIndex}){
+            return 'background-color:lightblue;color:#fff;font-wight:500;font-size:15px;'
+
         }
     }
 }
 </script>
+<style>
+    /*表格每一行被hover时的样式设置*/
+    .el-table--enable-row-hover .el-table__body tr:hover>td {
+        background-color: rgba(141, 214, 217, .4);;
+    }
+    /*表格某一行被点击时的样式*/
+    .el-table__body tr.current-row>td {
+        background-color: rgba(230, 14, 14, 0.4);;
+    }
+</style>
