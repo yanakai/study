@@ -2,7 +2,6 @@
     <div>
        <el-container>
            <el-header >
-               
            </el-header>
             <el-container>
                 <el-aside width="200px" >
@@ -47,7 +46,7 @@
                     </el-menu>
                 </el-aside>
                 <el-main>
-                    
+                    <router-view/>
                 </el-main>
             </el-container>
         </el-container>

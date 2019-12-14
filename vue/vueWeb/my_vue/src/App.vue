@@ -13,22 +13,54 @@ export default {
 </script>
 
 <style>
-*{
-  padding: 0;
-  margin: 0;
-}
-html,body{
-  width: 100%;
-  height: 100%;
-}
+  body {
+      margin: 0;
+      padding: 0;
+      font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+      font-size: 14px;
+      -webkit-font-smoothing: antialiased;
+  }
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
     height: 100%;
   }
+  .el-submenu [class^=fa] {
+      vertical-align: baseline;
+      margin-right: 10px;
+  }
+
+  .el-menu-item [class^=fa] {
+      vertical-align: baseline;
+      margin-right: 10px;
+  }
+
+  .toolbar {
+      background: #f2f2f2;
+      padding: 10px;
+      margin: 10px 0;
+  }
+  .el-form-item {
+      margin-bottom: 10px;
+  }
+  
+
+  .fade-enter-active,
+  .fade-leave-active {
+      transition: all 0.2s ease;
+  }
+
+  .fade-enter,
+  .fade-leave-active {
+      opacity: 0;
+  }
   /* 初始化表格操作按钮的大小及样式 */
-  .el-button--small, .el-button--small.is-round {
+  .el-button--mini, .el-button--mini.is-round {
       padding: 4px 8px;
   }
   /*表格每一行被hover时的样式设置*/

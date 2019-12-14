@@ -28,8 +28,8 @@
             </el-table-column>
             <el-table-column  label="操作" align="center">
                 <template slot-scope="scope">
-                    <el-button size="small" round icon="el-icon-edit" type="warning" @click="edit(scope.$index, scope.row)">编辑</el-button>
-                    <el-button size="small" round icon="el-icon-delete" type="danger" @click="delete(scope.$index, scope.row)">删除</el-button>
+                    <el-button size="mini" round icon="el-icon-edit" type="warning" @click="edit(scope.$index, scope.row)">编辑</el-button>
+                    <el-button size="mini" round icon="el-icon-delete" type="danger" @click="delete(scope.$index, scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
