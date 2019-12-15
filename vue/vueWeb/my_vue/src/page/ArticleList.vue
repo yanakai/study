@@ -102,7 +102,7 @@ export default {
     created(){
       this.initArticle();
     },
-    //页面数据监听
+    //页面监听
     watch: {
         dialogVisible(){ //貌似可以随便定义
             if(this.dialogVisible){ //监听弹窗是否打开
@@ -128,11 +128,18 @@ export default {
         handleClose(done) {
             done();
         },
+        //数据编辑页面dialog打开
+        editInfo: function(row){
+            this.info = row;
+            this.addFlag = false;
+            this.dialogVisible = true;
+        },
         //添加保存方法
         saveArticleInfo: function(){
             this.loading = true;
             var url = "/api/article/saveOrUpdate/";
             var params = qs.stringify({
+                    articleId : this.info.articleId!=null?this.info.articleId:null,
                     articleTitle : this.info.articleTitle,
                     columnId : this.info.columnId,
                     articleAbstract : this.info.articleAbstract,
@@ -142,21 +149,16 @@ export default {
                 this.dialogVisible = false;
                 this.info = {};
                 if(response.data.state==1){
-                    this.$message.success("添加成功");
+                    this.$message.success("保存成功");
                     this.initArticle();
                 }else{
-                    this.$message.error('添加失败!');
+                    this.$message.error('保存失败!');
                 }
             }).catch((error)=>{
                 console.log("error!"+error);
             });
             this.loading=false;//关闭loading
         },
-        //数据编辑页面dialog打开
-        edit: function(row){
-            alert("78899");
-        },
-
         //删除数据
         deleteInfo: function(row){
             this.$confirm('是否删除此条文章数据?', '提示', {
