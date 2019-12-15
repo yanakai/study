@@ -57,11 +57,21 @@
                 :visible.sync="dialogVisible"
                 :before-close="handleClose"
             >
-                <el-form ref="info" label-width="80px">
+                <el-form ref="info" label-width="100px">
                     <el-form-item label="标题：" >
                         <el-input v-model="info.articleTitle" placeholder="请输入文章标题"></el-input>
                     </el-form-item>
-                    <el-form-item label="所属栏目" prop="info.columnId">
+                    <el-form-item label="选择图片：" >
+                        <el-upload 
+                        class="upload-demo"
+                        action="这里随便写，反正用不到，但是又必须要写，无奈"  
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        list-type="picture">
+                        <el-input type="text"></el-input>
+                        </el-upload>
+                    </el-form-item>
+                    <el-form-item label="所属栏目：" prop="info.columnId">
                         <el-select v-model="info.columnId" placeholder="请选择所属栏目" style="width: 100%;">
                             <el-option  v-for="item in columnList" :key="item.columnId" :label="item.columnName"
                                 :value="item.columnId"></el-option>
