@@ -36,8 +36,8 @@
             <el-table-column prop="lastModifyTime" label="最后修改时间" align="center"></el-table-column>
             <el-table-column  label="操作" align="center" width="200%">
                 <template slot-scope="scope">
-                    <el-button size="mini" round icon="el-icon-edit" type="warning" @click="edit(scope.$index,scope.row)">编辑</el-button>
-                    <el-button size="mini" round icon="el-icon-delete" type="danger" @click="delete(scope.$index,scope.row)">删除</el-button>
+                    <el-button size="mini" round icon="el-icon-edit" type="warning" @click="editInfo(scope.row)">编辑</el-button>
+                    <el-button size="mini" round icon="el-icon-delete" type="danger" @click="deleteInfo(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -70,6 +70,26 @@ export default {
         //表格编辑方法
         edit: function(){
             alert("78899");
+        },
+        //删除数据
+        deleteInfo: function(row){
+            this.$confirm('是否删除此条文章数据?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(()=>{// 向服务端请求删除
+                var url = "/api/article/delete/"+row.articleId; 
+                 Vue.axios.post(url).then((response)=>{
+                    if(response.data.state==1){
+                         this.$message.success("删除成功");
+                         this.initArticle();
+                    }else{
+                        this.$message.error('删除失败!');
+                    }
+                 })
+            }).catch(() => {
+                this.$message.info('已取消操作!');
+            })
         },
         //设置表格行的样式
         tableRowStyle({row,rowIndex}){
