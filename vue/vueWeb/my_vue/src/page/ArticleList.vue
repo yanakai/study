@@ -16,7 +16,7 @@
         <el-table 
             :data="articleData"  
             v-loading="loading"
-            element-loading-text="加载数据中"
+            element-loading-text="数据加载中"
             highlight-current-row 
             :row-style="tableRowStyle" 
             :header-cell-style="tableHeaderColor"
@@ -48,7 +48,7 @@
             <el-table-column prop="lastModifyTime" label="最后修改时间" align="center"></el-table-column>
             <el-table-column  label="操作" align="center" width="200%">
                 <template slot-scope="scope">
-                    <el-button size="mini" round icon="el-icon-edit" type="warning" @click="editInfo(scope.row)">编辑</el-button>
+                    <el-button size="mini" round icon="el-icon-edit" type="warning"  @click="editInfo(scope.row)">编辑</el-button>
                     <el-button size="mini" round icon="el-icon-delete" type="danger" @click="deleteInfo(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
@@ -75,11 +75,10 @@ export default {
             var url = "/api/article/list/";
             Vue.axios.get(url).then((response)=>{
                 this.articleData = response.data.rows;
-                console.log("response: "+response.data.rows);
+                this.loading=false;//关闭loading
             }).catch((error)=>{
                 console.log("error!"+error);
             });
-            this.loading=false;//关闭loading
         },
         //表格编辑方法
         edit: function(){
@@ -92,15 +91,17 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(()=>{// 向服务端请求删除
+                this.loading = true;
                 var url = "/api/article/delete/"+row.articleId; 
-                 Vue.axios.post(url).then((response)=>{
-                    if(response.data.state==1){
-                         this.$message.success("删除成功");
-                         this.initArticle();
-                    }else{
-                        this.$message.error('删除失败!');
-                    }
-                 })
+                Vue.axios.post(url).then((response)=>{
+                if(response.data.state==1){
+                    this.$message.success("删除成功");
+                    this.initArticle();
+                    this.loading=false;//关闭loading
+                }else{
+                    this.$message.error('删除失败!');
+                }
+                })
             }).catch(() => {
                 this.$message.info('已取消操作!');
             })
