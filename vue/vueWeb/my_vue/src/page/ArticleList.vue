@@ -1,10 +1,22 @@
 <template>
     <div>
+        <el-row>
+            <el-col :span="1" class="grid">
+                <el-button type="" 
+                @click="addFlag=true;dialogVisible = true "
+                icon="el-icon-circle-plus-outline"
+                size="mini"
+                round
+                >新增</el-button>
+            </el-col>
+        </el-row>
         <!-- highlight-current-row:设置选中高亮 -->
         <!-- :header-cell-style="tableHeaderColor":设置表格头部样式 -->
         <!-- :row-style="tableRowStyle" :设置表格行样式 -->
         <el-table 
             :data="articleData"  
+            v-loading="loading"
+            element-loading-text="加载数据中"
             highlight-current-row 
             :row-style="tableRowStyle" 
             :header-cell-style="tableHeaderColor"
@@ -50,7 +62,8 @@ export default {
     //数据
     data(){
         return {
-            articleData:[]
+            articleData:[],
+            loading: true
         }
     },
     //在这里页面初始化时调用ajax请求方法 初始化方法
@@ -66,6 +79,7 @@ export default {
             }).catch((error)=>{
                 console.log("error!"+error);
             });
+            this.loading=false;//关闭loading
         },
         //表格编辑方法
         edit: function(){
