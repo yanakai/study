@@ -49,6 +49,18 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <!--分页按钮开始-->
+            <div class="block">
+                <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage4"
+                :page-sizes="[10, 20, 30, 40,50,100]"
+                :page-size="10"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="400">
+                </el-pagination>
+            </div>
             <el-dialog
                 class="abow_dialog"
                 :title="addFlag?'新增文章':'修改文章'"
@@ -145,6 +157,12 @@ export default {
             }).catch((error)=>{
                 console.log("error!"+error);
             });
+        },
+         handleSizeChange(val) {
+            console.log(`每页 ${val} 条`);
+        },
+        handleCurrentChange(val) {
+            console.log(`当前页: ${val}`);
         },
         handleClose(done) {
             done();
@@ -252,11 +270,11 @@ export default {
         },
         //设置表格行的样式
         tableRowStyle({row,rowIndex}){
-            return 'background-color:pink;color:#fff;font-size:3px;'
+            return 'background-color:pink;color:#fff;font-size:2px;'
         },
         //设置表头行的样式
         tableHeaderColor({row,column,rowIndex,columnIndex}){
-            return 'background-color:lightblue;color:#fff;font-wight:500;font-size:10x;'
+            return 'background-color:lightblue;color:#fff;font-wight:500;font-size:6x;'
 
         }
     }
