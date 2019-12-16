@@ -61,14 +61,23 @@
                     <el-form-item label="标题：" >
                         <el-input v-model="info.articleTitle" placeholder="请输入文章标题"></el-input>
                     </el-form-item>
-                    <el-form-item label="选择图片：" >
+                    <el-form-item  :data="info.imgPath"></el-form-item>
+                    <el-form-item  :data="info.imgName"></el-form-item>
+                    <el-form-item label="选择图片：">
                         <el-upload 
-                        class="upload-demo"
-                        action="这里随便写，反正用不到，但是又必须要写，无奈"  
+                        ref="upload"
+                        action="/api/common/upload"
+                        name="file"
+                        list-type="picture"
+                        :limit="1"
+                        :file-list="fileList"
+                        :on-exceed="onExceed"
+                        :before-upload="beforeUpload"
                         :on-preview="handlePreview"
+                        :on-success="handleSuccess"
                         :on-remove="handleRemove"
-                        list-type="picture">
-                        <el-input type="text"></el-input>
+                        >
+                        <el-button type="primary">浏览图片</el-button>
                         </el-upload>
                     </el-form-item>
                     <el-form-item label="所属栏目：" prop="info.columnId">
@@ -101,11 +110,14 @@ export default {
     data(){
         return {
             dialogVisible: false,//弹出框是否显示
-            articleData:[],//文章列表数据
+            articleData: [],//文章列表数据
             loading: true, //是否加载loading
             addFlag: true, //添加和编辑页面的title区别
-            info:{}, //添加和编辑页面的对象
-            columnList:[] //所属栏目下拉列表
+            info: {}, //添加和编辑页面的对象
+            columnList: [], //所属栏目下拉列表
+            fileList: [],//图片列表（用于在上传组件中回显图片）
+            imgPath: "",//图片路径
+            imgName: "",//图片名称
         }
     },
     //在这里页面初始化时调用ajax请求方法 初始化方法
@@ -143,17 +155,65 @@ export default {
             this.info = row;
             this.addFlag = false;
             this.dialogVisible = true;
+            this.fileList=[{name:row.imgName,url:row.imgPath}]
+        },
+           //文件上传成功的钩子函数
+        handleSuccess(res,file) {
+            if(file.response.state == 1){
+                this.$message({
+                    type: 'info',
+                    message: '图片上传成功',
+                    duration: 6000
+                });
+                this.imgName=file.response.data.fileName;
+                this.imgPath=file.response.data.url;
+            }
+        },
+        //删除文件之前的钩子函数
+        handleRemove(file, fileList) {
+        },
+        //点击列表中已上传的文件事的钩子函数
+        handlePreview(file) { //可以在此写图片预览方法，查看大图
+        
+        },
+        //上传的文件个数超出设定时触发的函数
+        onExceed(files, fileList) {
+            this.$message({
+                type: 'info',
+                message: '最多只能上传一个图片,请删除之前上传的',
+                duration: 6000
+            });
+        },
+        //文件上传前的前的钩子函数
+        //参数是上传的文件，若返回false，或返回Primary且被reject，则停止上传
+        beforeUpload(file) {
+            const isJPG = file.type === 'image/jpeg';
+            const isGIF = file.type === 'image/gif';
+            const isPNG = file.type === 'image/png';
+            const isBMP = file.type === 'image/bmp';
+            const isLt2M = file.size / 1024 / 1024 < 2;
+            if (!isJPG && !isGIF && !isPNG && !isBMP) {
+                this.$message.error('上传图片必须是JPG/GIF/PNG/BMP 格式!');
+            }else{
+                if (!isLt2M) {
+                    this.$message.error('上传图片大小不能超过 2MB!');
+                }
+            }
+            return (isJPG || isBMP || isGIF || isPNG) && isLt2M;
         },
         //添加保存方法
         saveArticleInfo: function(){
             this.loading = true;
             var url = "/api/article/saveOrUpdate/";
+            //拼装需要保存的字段
             var params = qs.stringify({
                     articleId : this.info.articleId!=null?this.info.articleId:null,
                     articleTitle : this.info.articleTitle,
                     columnId : this.info.columnId,
                     articleAbstract : this.info.articleAbstract,
-                    articleContent : this.info.articleContent
+                    articleContent : this.info.articleContent,
+                    imgPath : this.imgPath,
+                    imgName : this.imgName 
                 })
             Vue.axios.post(url,params).then((response)=>{
                 this.dialogVisible = false;
