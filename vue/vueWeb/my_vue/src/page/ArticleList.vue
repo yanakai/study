@@ -1,7 +1,5 @@
 <template>
-    
     <div>
-        <div></div>
         <div>
             <el-row style="margin-top:25px;">
                 <el-col :span="1" class="grid">
@@ -52,8 +50,9 @@
                 </el-table-column>
             </el-table>
             <el-dialog
+                class="abow_dialog"
                 :title="addFlag?'新增文章':'修改文章'"
-                style="text-align:left !important"
+                style="height:560px;text-align:left !important"
                 :visible.sync="dialogVisible"
                 :before-close="handleClose"
             >
@@ -77,7 +76,7 @@
                         :on-success="handleSuccess"
                         :on-remove="handleRemove"
                         >
-                        <el-button type="primary">浏览图片</el-button>
+                        <el-button type="primary">浏览图片<i class="el-icon-upload el-icon--right"></i></el-button>
                         </el-upload>
                     </el-form-item>
                     <el-form-item label="所属栏目：" prop="info.columnId">
