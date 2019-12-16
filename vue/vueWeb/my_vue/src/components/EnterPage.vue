@@ -13,8 +13,9 @@ file-list 上传的文件列表，这个参数用于在这个上传组件中回�
 :on-remove 文件列表移除时的钩子函数
 :src 图片上传的URL。
 -->
-  <el-upload
-  ref="upload"
+  <el-from-item label="图片">
+     <el-upload
+    ref="upload"
     action="/api/common/upload"
     name="file"
     list-type="picture"
@@ -25,12 +26,16 @@ file-list 上传的文件列表，这个参数用于在这个上传组件中回�
     :on-preview="handlePreview"
     :on-success="handleSuccess"
     :on-remove="handleRemove"
-  >
-  <el-button size="small" type="primary">点击上传</el-button>
-  <el-dialog :visible.sync="dialogVisible">
-        <img width="100%" :src="dialogImageUrl" alt="">
-  </el-dialog>
-</el-upload>
+    >
+      <el-button type="primary">浏览图片</el-button>
+    </el-upload>
+    <el-dialog :visible.sync="dialogVisible">
+        <img width="100%" :src="dialogImageUrl" alt="图片预览">
+    </el-dialog>
+
+  </el-from-item>
+ 
+   
 </template>
 
 <script>
@@ -39,7 +44,7 @@ export default {
   name: "CopName",
   data() {
     return {
-       //文件上传的参数
+      //文件上传的参数
       dialogImageUrl: '',
       dialogVisible: false,
       //图片列表（用于在上传组件中回显图片）
@@ -48,26 +53,23 @@ export default {
   },
   methods: {
      //文件上传成功的钩子函数
-    handleSuccess(res, file) {
-        this.$message({
+    handleSuccess(res,file) {
+        if(file.response.state == 1){
+          this.$message({
             type: 'info',
             message: '图片上传成功',
             duration: 6000
-        });
-        if (file.response.success) {
-            this.editor.picture = file.response.message; //将返回的文件储存路径赋值picture字段
+          });
         }
     },
     //删除文件之前的钩子函数
     handleRemove(file, fileList) {
-        this.$message({
-            type: 'info',
-            message: '已删除原有图片',
-            duration: 6000
-        });
+     
     },
     //点击列表中已上传的文件事的钩子函数
-    handlePreview(file) {
+    handlePreview(file) { //可以在此写图片预览方法，查看大图
+      this.dialogVisible=true;
+     this.dialogImageUrl=file.response.data.url;
     },
     //上传的文件个数超出设定时触发的函数
     onExceed(files, fileList) {
@@ -88,9 +90,10 @@ export default {
 
         if (!isJPG && !isGIF && !isPNG && !isBMP) {
             this.$message.error('上传图片必须是JPG/GIF/PNG/BMP 格式!');
-        }
-        if (!isLt2M) {
+        }else{
+          if (!isLt2M) {
             this.$message.error('上传图片大小不能超过 2MB!');
+          }
         }
         return (isJPG || isBMP || isGIF || isPNG) && isLt2M;
     },  
