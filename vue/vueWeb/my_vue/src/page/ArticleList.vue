@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <el-row style="margin-top:25px;">
+            <el-row style="margin-top:10px;">
                 <el-col :span="1" class="grid">
                     <el-button icon="el-icon-circle-plus" type="primary"  @click="addFlag=true;dialogVisible = true ">添加</el-button>
                 </el-col>
@@ -39,7 +39,6 @@
                     <span v-if="scope.row.topStatus=='1'">已置顶</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="chickNum" label="浏览次数" align="center"></el-table-column>
                 <el-table-column prop="createName" label="创建者" align="center"></el-table-column>
                 <el-table-column prop="lastModifyTime" label="最后修改时间" align="center"></el-table-column>
                 <el-table-column  label="操作" align="center" width="200%">
@@ -54,11 +53,11 @@
                 <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
-                :current-page="currentPage4"
+                :current-page="pageNum"
                 :page-sizes="[10, 20, 30, 40,50,100]"
-                :page-size="10"
+                :page-size="pageSize"
                 layout="total, sizes, prev, pager, next, jumper"
-                :total="400">
+                :total="total">
                 </el-pagination>
             </div>
             <el-dialog
@@ -120,10 +119,13 @@ export default {
     //数据
     data(){
         return {
-            dialogVisible: false,//弹出框是否显示
             articleData: [],//文章列表数据
             loading: true, //是否加载loading
+            total: 0,//列表总条数
+            pageNum:1, //当前页码数
+            pageSize:10,//每天显示条数
             addFlag: true, //添加和编辑页面的title区别
+            dialogVisible: false,//添加或者编辑弹出框是否显示
             info: {}, //添加和编辑页面的对象
             columnList: [], //所属栏目下拉列表
             fileList: [],//图片列表（用于在上传组件中回显图片）
@@ -149,33 +151,38 @@ export default {
         }
     },
     methods : {
-        initArticle: function(){
+        initArticle: function(){//文章列表初始化
             var url = "/api/article/list/";
-            Vue.axios.get(url).then((response)=>{
-                this.articleData = response.data.rows;
+           var params = qs.stringify({
+               pageNum:this.pageNum,
+               pageSize:this.pageSize
+           })
+            Vue.axios.post(url,params).then((response)=>{
+                this.articleData = response.data.rows;//写入列表数据
+                this.total = response.data.total; //写入总条数
                 this.loading=false;//关闭loading
             }).catch((error)=>{
                 console.log("error!"+error);
             });
         },
-         handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
+        handleSizeChange(val) { //选择每页显示条数
+            this.pageSize=val;//设置每页显示的条数
+             this.initArticle();;//刷新表格
         },
-        handleCurrentChange(val) {
-            console.log(`当前页: ${val}`);
+        handleCurrentChange(val) { //点击页数
+            this.pageNum=val;//设置选中的页数
+            this.initArticle();;//刷新表格
         },
         handleClose(done) {
             done();
         },
-        //数据编辑页面dialog打开
-        editInfo: function(row){
+        editInfo: function(row){//数据编辑页面dialog打开
             this.info = row;
             this.addFlag = false;
             this.dialogVisible = true;
             this.fileList=[{name:row.imgName,url:row.imgPath}]
         },
-           //文件上传成功的钩子函数
-        handleSuccess(res,file) {
+        handleSuccess(res,file) { //文件上传成功的钩子函数
             if(file.response.state == 1){
                 this.$message({
                     type: 'info',
@@ -186,15 +193,13 @@ export default {
                 this.imgPath=file.response.data.url;
             }
         },
-        //删除文件之前的钩子函数
-        handleRemove(file, fileList) {
+        handleRemove(file, fileList) {//删除文件之前的钩子函数
         },
         //点击列表中已上传的文件事的钩子函数
         handlePreview(file) { //可以在此写图片预览方法，查看大图
         
         },
-        //上传的文件个数超出设定时触发的函数
-        onExceed(files, fileList) {
+        onExceed(files, fileList) {//上传的文件个数超出设定时触发的函数
             this.$message({
                 type: 'info',
                 message: '最多只能上传一个图片,请删除之前上传的',
@@ -275,7 +280,6 @@ export default {
         //设置表头行的样式
         tableHeaderColor({row,column,rowIndex,columnIndex}){
             return 'background-color:lightblue;color:#fff;font-wight:500;font-size:6x;'
-
         }
     }
 }
