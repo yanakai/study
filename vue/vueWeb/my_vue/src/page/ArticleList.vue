@@ -28,6 +28,7 @@
                 <el-table-column sortable prop="columnName" label="所属栏目" align="center"></el-table-column>
                 <el-table-column sortable prop="releaseTime" label="发布时间" align="center">
                     <template slot-scope="scope">
+                        <!-- main.js创建过滤器 页面引用 一个表达式可以使用多个过滤器。过滤器之间需要用管道符“|”隔开。其执行顺序从左往右 -->
                         <div>{{scope.row.releaseTime|timestampToDate}}</div>
                     </template>
                 </el-table-column>
