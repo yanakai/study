@@ -24,23 +24,31 @@
                         <span>{{scope.$index + 1}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="articleTitle" label="文章标题" align="center"></el-table-column>
-                <el-table-column prop="columnName" label="所属栏目" align="center"></el-table-column>
-                <el-table-column prop="releaseTime" label="发布时间" align="center"></el-table-column>
-                <el-table-column prop="releaseStatus" label="发布状态" align="center" >
+                <el-table-column sortable prop="articleTitle" label="文章标题" align="center"></el-table-column>
+                <el-table-column sortable prop="columnName" label="所属栏目" align="center"></el-table-column>
+                <el-table-column sortable prop="releaseTime" label="发布时间" align="center">
+                    <template slot-scope="scope">
+                        <div>{{scope.row.releaseTime|timestampToDate}}</div>
+                    </template>
+                </el-table-column>
+                <el-table-column sortable prop="releaseStatus" label="发布状态" align="center" >
                     <template slot-scope="scope">
                     <span v-if="scope.row.releaseStatus=='0'">未发布</span>
                     <span v-if="scope.row.releaseStatus=='1'">已发布</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="topStatus" label="置顶状态" align="center">
+                <el-table-column sortable prop="topStatus" label="置顶状态" align="center">
                     <template slot-scope="scope">
                     <span v-if="scope.row.topStatus=='0'">未置顶</span>
                     <span v-if="scope.row.topStatus=='1'">已置顶</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="createName" label="创建者" align="center"></el-table-column>
-                <el-table-column prop="lastModifyTime" label="最后修改时间" align="center"></el-table-column>
+                <el-table-column sortable prop="createName" label="创建者" align="center"></el-table-column>
+                <el-table-column prop="lastModifyTime" :formatter="dateFormat" label="最后修改时间" align="center">
+                    <template slot-scope="scope">
+                        <div>{{scope.row.lastModifyTime|timestampToDate}}</div>
+                    </template>
+                </el-table-column>
                 <el-table-column  label="操作" align="center" width="200%">
                     <template slot-scope="scope">
                         <el-button size="mini" round icon="el-icon-edit" type="warning"  @click="editInfo(scope.row)">编辑</el-button>
@@ -49,14 +57,15 @@
                 </el-table-column>
             </el-table>
             <!--分页按钮开始-->
-            <div class="block">
+            <div style="text-align:center;margin-top:10px;">
                 <el-pagination
+                background
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="pageNum"
                 :page-sizes="[10, 20, 30, 40,50,100]"
                 :page-size="pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
+                layout="total,sizes,prev,pager,next,jumper"
                 :total="total">
                 </el-pagination>
             </div>
@@ -151,6 +160,14 @@ export default {
         }
     },
     methods : {
+        // dateFormat: function(row, column){
+        // var date = row[column.property];
+        //     console.log(date)
+        //     if (date === undefined) {
+        //         return "";
+        //     }
+        //     return utils.formatDate.format(new Date(date), 'yyyy-MM-dd');
+        // },
         initArticle: function(){//文章列表初始化
             var url = "/api/article/list/";
            var params = qs.stringify({
