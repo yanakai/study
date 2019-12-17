@@ -13,6 +13,12 @@ Vue.config.productionTip = false
 Vue.use(ElementUI) //引入element-ui模块
 Vue.use(VueAxios,axios) //引入axios 模块
 
+// 过滤器
+import * as custom from './utils/util'
+Object.keys(custom).forEach(key => {
+    Vue.filter(key, custom[key])
+})
+
 Vue.prototype.$axios = axios
 axios.interceptors.response.use(res => {
     if (!res.data)
