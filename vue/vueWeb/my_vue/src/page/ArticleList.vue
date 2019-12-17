@@ -161,14 +161,6 @@ export default {
         }
     },
     methods : {
-        // dateFormat: function(row, column){
-        // var date = row[column.property];
-        //     console.log(date)
-        //     if (date === undefined) {
-        //         return "";
-        //     }
-        //     return utils.formatDate.format(new Date(date), 'yyyy-MM-dd');
-        // },
         initArticle: function(){//文章列表初始化
             var url = "/api/article/list/";
            var params = qs.stringify({
