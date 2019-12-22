@@ -52,7 +52,7 @@
 </template>
 
 <script>
-//import * as mUtils from "@/utils/mUtils";
+import * as mUtils from "@/utils/mUtils";
 
 export default {
   name: "left-Menu",
@@ -84,7 +84,7 @@ export default {
 </script>
 
 
-<style lang="stylus" scoped>
+<style scoped lang="less">
 .menu_page {
   position: fixed;
   top: 70px;

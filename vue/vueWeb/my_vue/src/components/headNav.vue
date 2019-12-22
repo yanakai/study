@@ -1,201 +1,272 @@
 <template>
-    <header class="head-nav" id='header_container'>
-        <el-row style="margin:0 10px;">
-            <el-col :span="6" class='logo-container'>
-                <img src="../assets/img/logo.png" class='logo' alt="">
-                <span class='title'>小爱金融后台管理系统</span>
-            </el-col>
-            <div class="userinfo">
-                <img src="../assets/img/avatar.png" class='avatar' alt="">
-                <div class='welcome'>
-                    <p class='name comename'>欢迎</p>
-                    <p class='name avatarname'>{{userinfo.username}}</p>
+    <header class="head-nav rflex " :style="{'width':headNavWidth+'px'}" id='header_container'>
+        <div class="right-nav" ref="rightNav">
+            <top-menu></top-menu>
+            <div class="userinfo-right rflex">
+                <div class="notify-row">
+                    <ul class="top-menu">
+                        <li class="li-badge">
+                            <el-tooltip class="item" effect="dark" content="访问github" placement="top">
+                                <a :href='github' target="_blank">
+                                      <icon-svg icon-class="iconGithub" />
+                                </a>
+                            </el-tooltip>
+                        </li>
+                        <li class="li-badge">
+                            <a :href='github' target="_blank" v-popover:qcode>
+                                <icon-svg icon-class="iconwechat" />
+                                <el-popover
+                                    ref="qcode"
+                                    popper-class="qcodepopper"
+                                    placement="bottom"
+                                    trigger="hover">
+                                        <div class="wechat-area cflex">
+                                            <p class="titles">加我微信</p>
+                                            <img :src="wechat.wechatImg" alt="加我微信"  />
+                                        </div>
+                               </el-popover>
+                            </a>
+                        </li>
+                        <li class="li-badge">
+                            <a :href='github' target="_blank" v-popover:qqcode>
+						        <icon-svg icon-class="iconqq" />
+                                 <el-popover
+                                    ref="qqcode"
+                                    popper-class="qcodepopper"
+                                    placement="bottom"
+                                    trigger="hover">
+                                        <div class="wechat-area cflex">
+                                            <p class="titles">加入qq群</p>
+                                            <img :src="qq.qqImg" alt="加入qq群"  />
+                                        </div>
+                                </el-popover>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <span class='username'>
-                    <el-dropdown
-                            trigger="click"
-                            @command='setDialogInfo'>
-                        <span class="el-dropdown-link">
-                            <i class="el-icon-caret-bottom el-icon--right"></i>
-                        </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item command='info'>修改信息</el-dropdown-item>
-                            <el-dropdown-item command='pass'>修改密码</el-dropdown-item>
-                            <el-dropdown-item  command='logout'>退出</el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
-                </span>
-                <i class="fa fa-sign-out logout" @click='logout'></i>
+                <div class="userinfo">
+                    <el-menu 
+                       class="el-menu-demo" 
+                       mode="horizontal" 
+                       >
+                        <el-submenu index="1" popper-class="langItem">
+                            <template slot="title">
+                                <img :src="langLogo" class='langAvatar' alt="">
+                            </template>
+                            <el-menu-item index="1-1" @click="changeLocale('zh')">
+                                <img :src="chinaImg" class='langAvatar' alt="">
+                                <span class="intro">中文</span>
+                            </el-menu-item>
+                            <el-menu-item index="1-2" @click="changeLocale('en')">
+                                <img :src="americaImg" class='langAvatar' alt="">
+                                <span class="intro">EngList</span>
+                            </el-menu-item>
+                        </el-submenu>
+
+                        <el-submenu index="2"  popper-class="infoItem">
+                            <template slot="title">
+                                <div class='welcome'>
+                                    <span class="name">{{$t('commons.hi')}},</span>
+                                    <span class='name avatarname'> {{ $t(`commons.${name}`)}}</span>
+                                </div>
+                                <img :src="avatar" class='avatar' alt="">
+                            </template>
+                            <el-menu-item index="2-1" @click="setDialogInfo('info')">{{ $t('commons.infoShow') }}</el-menu-item>
+                            <el-menu-item index="2-2" @click="setDialogInfo('pass')">{{ $t('commons.infoModify') }}</el-menu-item>
+                            <el-menu-item index="2-3" @click="setDialogInfo('logout')">{{ $t('commons.quit') }}</el-menu-item>
+                        </el-submenu>
+                    </el-menu>
+                </div>
             </div>
-              <div class="notify-row">
-                <ul class="top-menu">
-                    <li class="li-badge">
-                        <a href='#/index'>
-                            <el-badge :value="6" class="item one">
-                                <i class="fa fa-tasks"></i>
-                            </el-badge>
-                        </a>
-                    </li>
-                    <li class="li-badge">
-                        <a href='#/index'>
-                            <el-badge :value="12" class="item two">
-                                <i class="fa fa-envelope-o"></i>
-                            </el-badge>
-                        </a>
-                    </li>
-                     <li class="li-badge">
-                        <a href='#/index'>
-                            <el-badge :value="34" class="item three">
-                                <i class="fa fa-bell-o"></i>
-                            </el-badge>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </el-row>
+        </div>
     </header>
 </template>
 
 <script>
-    //import * as mUtils from '@/utils/mUtils'
+    import { mapGetters } from "vuex";
+    import * as mUtils from '@/utils/mUtils'
+    import { setToken,getToken } from '@/utils/auth'
+    import store from "@/store";
+    import topMenu from "./topMenu";
+    import wechatImg from "@/assets/img/wechat.jpg";
+    import qqImg from "@/assets/img/qq.png";
+    import logoImg from "@/assets/img/logo.png";
+    import chinaImg from "@/assets/img/china.svg";
+    import americaImg from "@/assets/img/america.svg";
+    import { github } from "@/utils/env";
+
+
     export default {
           name: 'head-nav',
           data(){
             return{
-                userinfo:''
+                logo:logoImg,
+                langLogo:getToken('langLogo') || americaImg,
+                chinaImg:chinaImg,
+                americaImg:americaImg,
+                wechat:{
+                    wechatImg:wechatImg,
+                    isWechat:false
+                },
+                qq:{
+                    qqImg:qqImg,
+                    isQq:false,
+                },
+                github:github,
+                menu:{
+                    userBgcolor:'#f0f2f5'
+                }
             }
           },
+          components:{
+            topMenu
+          },
+          computed:{
+            ...mapGetters(['name','avatar','sidebar']),
+             headNavWidth(){
+                return document.body.clientWidth - this.sidebar.width
+            }
+              
+          },
           created(){
-             this.userinfo =  mUtils.getStore('userinfo');
+            
+          },
+          mounted(){
           },
           methods:{
-              logout(){
-                  this.$router.push('/');
+              showWechat(){
+                  this.wechat.isWechat = true;
               },
-              showInfoList(){
-                  this.$router.push('/infoModify');
+              hideWechat(){
+                 this.wechat.isWechat = false;
+              },
+              showQq(){
+                  this.qq.isQq = true;
+              },
+              hideQq(){
+                  this.qq.isQq = false;
+              },
+              logout(){
+                  this.$store.dispatch('LogOut').then(() => {
+                      location.reload();
+                  })
               },
              /**
              * 弹出框-修改密码或者系统设置   
              * @param {string} cmditem 弹框类型
              */
             setDialogInfo(cmditem) {
-                if (!cmditem) {
-                    console.log('test');
-                    this.$message('菜单选项缺少command属性');
-                    return;
-                }
                 switch (cmditem) {
                     case 'info':
+                        this.$router.push('/infoManage/infoShow/infoShow1');
+                        break;
                     case 'pass':
-                        this.showInfoList();
+                        this.$router.push('/infoManage/infoModify/infoModify1');
                         break;
                     case 'logout':
                         this.logout();
                         break;
                 }
             },
+            // 切换语言
+            changeLocale(type){
+                setToken('lang',type);
+                this.$i18n.locale = type;
+                if(type === 'en'){
+                    this.langLogo = this.americaImg;
+                }else{
+                    this.langLogo = this.chinaImg;
+                }
+                setToken('langLogo',this.langLogo);
+            }
           }
     }
 </script>
 
-<style lang="stylus" scoped>
-    .logo-container {
-         line-height: 60px;
-         min-width: 400px;
-        .logo {
-            height: 50px;
-            width: 50px;
-            margin-right: 5px;
-            vertical-align: middle;
-            display: inline-block;
-        }
-        .title{
-            vertical-align: middle;
-            font-size: 22px;
-            font-family: cursive;
-            letter-spacing: 3px;
-        }
-    }
-    .fa-user {
-        position: relative;
-        top: -2px;
-        margin-right: 4px;
+<style scoped lang="less">
+    .right-nav{
+        display: flex;
+        flex: 1;
+        width:calc(100% - 180px);
+        padding-right: 15px;
+        justify-content: space-between;
+        box-shadow:0px 2px 5px 0px rgba(237,233,233,0.5);
     }
     .head-nav {
-        width: 100%;
-        height: 60px;
-        min-width:600px;
-        padding: 5px;
-        background: url('../assets/img/zhi001.png');
         position: fixed;
-        top: 0px;
-        left: 0px;
-        z-index: 100;
-        color: #FFF;
+        top: 0;
+        right: 0;
+        z-index: 29;
+        transition: width .2s;
+        justify-content: space-between;
+        height: 60px;
+        box-sizing: border-box;
+        background: #fff;
         .logout {
             vertical-align: middle;
             cursor: pointer;
         }
     }
+    .middle{
+       align-items: center;
+       border:1px solid;
+    }
+    .userinfo-right{
+        width:320px;
+        padding: 0 10px;
+        justify-content: space-between;
+    }
     .userinfo {
         line-height: 60px;
         text-align:right;
-        float:right;
     }
     .avatar{
-        width: 40px;
-        height: 40px;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        vertical-align: middle;
+        display: inline-block;
+    }
+    .langAvatar{
+        width: 24px;
+        height: 24px;
         border-radius: 50%;
         vertical-align: middle;
         display: inline-block;
     }
     .welcome{
         display: inline-block;
-        width:auto;
         vertical-align: middle;
         padding: 0 5px;
         .name{
             line-height: 20px;
             text-align: center;
-            font-size: 14px;
-        }
-        .comename{
             font-size: 12px;
         }
         .avatarname{
             color:#a9d86e;
             font-weight:bolder;
+            font-size: 13px;
         }
     }
 
     .username {
         cursor: pointer;
         margin-right: 5px;
-        .el-dropdown {
-            color: #FFF;
-        }
     }
-
     .border{
         border:1px solid;
     }
     .notify-row{
         line-height:60px;
-        float: right;
-        margin-right: 20px;
-        margin-top: 5px;
+        flex:1;
+        ul{
+           display: flex;
+           justify-content: space-around;
+        }
     }
+   
     ul.top-menu > li {
-        float: left;
-        margin-right: 20px;
-    }
-    ul.top-menu > li > a {
-        color:#3bc5ff;
-        font-size: 16px;
-        border-radius: 4px;
-        -webkit-border-radius: 4px;
-        border: 1px solid #f0f0f8 !important;
-        padding: 2px 6px 4px 6px;
+        position: relative;
     }
 </style>

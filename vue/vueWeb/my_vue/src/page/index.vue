@@ -1,69 +1,64 @@
 <template>
-    <div class="home">
-        <head-nav></head-nav>
-        <div class="left-fixed-right-auto">
-            <left-menu></left-menu>
-            <div class="content_page" 
-                :style="{'margin-left':$store.state.menu.sidebar.width,
-                         'width':$store.state.page.win_content.width+'px',
-                         'height':$store.state.page.win_content.height+'px'}">
-                <div class="content">
-                    <bread></bread>
-                    <router-view></router-view><!--页面渲染入口-->
-                </div>
+    <div class="home rflex">
+        <left-menu></left-menu>
+        <div class="menu_right wflex el-scrollbar" ref="menu_right" style="{left:sidebar.width+'px'}">
+            <head-nav></head-nav>
+            <div class="menu_content" ref="menu_content">
+                <bread></bread>
+                <router-view></router-view><!--页面渲染入口-->
             </div>
+            <footerNav></footerNav>
         </div>
     </div>
 </template>
 <script>
-import HeadNav from '../components/headNav.vue';
-import LeftMenu from '../components/leftMenu.vue';
-import Bread from '../components/bread.vue';
-export default {
-   name: 'Index',
-    data(){
-        return {
-            win_size: {
-                height: '',
-                width:'',
-            },
+    import { mapState, mapGetters } from 'vuex'
+
+    import HeadNav from '../components/headNav';
+	import LeftMenu from '../components/leftMenu';
+	import Bread from '../components/bread';
+	import FooterNav from '../components/footerNav';
+
+    export default {
+        name: 'Index',
+        data(){
+            return {
+            }
+        },
+        computed:{
+            ...mapGetters(['sidebar']),
+        },
+        components:{
+            HeadNav,
+            LeftMenu,
+            Bread,
+            FooterNav
+        },
+        created() {
+        },
+        mounted (){
+        },
+        watch:{
+          
+        }
+    }
+</script>
+<style lang="less">
+    .home{
+        .menu_right{
+            overflow: auto;
+            position: absolute;
+            right:0;
+            top:0;
+            bottom:0;
+            background:#F6F7FC;
+            .menu_content{
+                position: relative;
+                margin-top:60px;
+                width:100%;
+                background:#f0f2f5;
+            }
 
         }
-    },
-    components:{//注册组件
-        HeadNav,LeftMenu,Bread
-    },
-    methods: {
-        //用于自适配窗口页面大小
-        setSize() {
-            //lib_$-->$,window的宽,高的获取是没有问题的。
-            this.win_size = {
-                height:document.body.clientHeight-73,
-                width:document.body.clientWidth-183
-            }
-            //将content部分的宽高，存入store中，
-            this.$store.dispatch('set_win_content',this.win_size); //触发动作，content部分的宽高也随即改变。
-        },
-    },
-    created() {
-        this.setSize();
-    },
-    mounted (){
-        window.onresize = () => {
-                this.setSize();
-        }
-    }
-}
-</script>
-<style lang="stylus" scoped>
-    .content_page{
-        position: fixed;
-        top:71px;
-        background: #FFF;
-        overflow:auto;
-    }
-     .content{
-       width:100%;
-       height:100%;
     }
 </style>
