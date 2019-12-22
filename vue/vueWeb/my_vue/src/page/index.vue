@@ -7,7 +7,7 @@
                 <bread></bread>
                 <router-view></router-view><!--页面渲染入口-->
             </div>
-            <footerNav></footerNav>
+            <footer-nav></footer-nav>
         </div>
     </div>
 </template>
