@@ -66,7 +66,7 @@ export default {
 
 </script>
 
-<style lang="less">
+<style lang="stylus" scoped>
 	.bread_container{
 		background-color: #EFF2F7;
 		margin-bottom: 5px;

@@ -57,7 +57,7 @@
 </template>
 
 <script>
-    import * as mUtils from '@/utils/mUtils'
+    //import * as mUtils from '@/utils/mUtils'
     export default {
           name: 'head-nav',
           data(){
@@ -95,16 +95,11 @@
                         break;
                 }
             },
-
-
-
-
-
           }
     }
 </script>
 
-<style scoped lang='less'>
+<style lang="stylus" scoped>
     .logo-container {
          line-height: 60px;
          min-width: 400px;

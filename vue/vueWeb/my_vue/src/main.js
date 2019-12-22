@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store/'
 import ElementUI from 'element-ui'  //引入element-ui模块
 import 'element-ui/lib/theme-chalk/index.css'  //引入element-ui模块
 import 'font-awesome/css/font-awesome.min.css'
@@ -13,7 +14,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI) //引入element-ui模块
 Vue.use(VueAxios,axios) //引入axios 模块
 
-// 创建过滤器
+// 创建全局过滤器
 import * as custom from './utils/util'
 Object.keys(custom).forEach(key => {
     Vue.filter(key, custom[key])
@@ -34,6 +35,7 @@ axios.interceptors.response.use(res => {
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
