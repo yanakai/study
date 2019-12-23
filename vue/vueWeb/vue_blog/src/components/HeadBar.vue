@@ -17,47 +17,13 @@
         <el-menu-item index="4" @click="openWindow('https://www.cnblogs.com/xifengxiaoma/')">{{$t("common.blog")}}</el-menu-item>
       </el-menu>
     </span>
-    <!-- 工具栏 -->
+     <!-- 工具栏 -->
     <span class="toolbar">
       <el-menu class="el-menu-demo" :background-color="themeColor" :text-color="themeColor" :active-text-color="themeColor" mode="horizontal">
         <el-menu-item index="1">
           <!-- 主题切换 -->
           <theme-picker class="theme-picker" :default="themeColor" @onThemeChange="onThemeChange"></theme-picker>
         </el-menu-item>
-        <el-menu-item index="2" v-popover:popover-lang>
-          <!-- 语言切换 -->
-          <li style="color:#fff;" class="fa fa-language fa-lg"></li>
-          <el-popover ref="popover-lang" placement="bottom-start" trigger="click" v-model="langVisible">
-            <div class="lang-item" @click="changeLanguage('zh_cn')">简体中文</div>
-            <div class="lang-item" @click="changeLanguage('en_us')">English</div>
-          </el-popover>
-        </el-menu-item>
-        <el-menu-item index="3" v-popover:popover-message>
-          <!-- 我的私信 -->
-          <el-badge :value="5" :max="99" class="badge" type="success">
-            <li style="color:#fff;" class="fa fa-envelope-o fa-lg"></li>
-          </el-badge>
-          <el-popover ref="popover-message" placement="bottom-end" trigger="click">
-            <message-panel></message-panel>
-          </el-popover>
-        </el-menu-item>
-        <el-menu-item index="4" v-popover:popover-notice>
-          <!-- 系统通知 -->
-          <el-badge :value="4" :max="99" class="badge" type="success">
-            <li style="color:#fff;" class="fa fa-bell-o fa-lg"></li>
-          </el-badge>
-          <el-popover ref="popover-notice" placement="bottom-end" trigger="click">
-            <notice-panel></notice-panel>
-          </el-popover>
-        </el-menu-item>
-        <el-menu-item index="5" v-popover:popover-personal>
-          <!-- 用户信息 -->
-          <span class="user-info"><img :src="user.avatar" />{{user.name}}</span>
-          <el-popover ref="popover-personal" placement="bottom-end" trigger="click" :visible-arrow="false">
-            <personal-panel :user="user"></personal-panel>
-          </el-popover>
-        </el-menu-item>
-      </el-menu>
     </span>
   </div>
 </template>
@@ -65,9 +31,10 @@
 <script>
 import { mapState } from 'vuex'
 import mock from "@/mock/index"
+import ThemePicker from "@/components/ThemePicker" //引入自定义主题
 export default {
   components:{
-      
+       ThemePicker
   },
   data() {
     return {
@@ -91,16 +58,6 @@ export default {
     // 折叠导航栏
     onCollapse: function() {
       this.$store.commit('onCollapse')
-    },
-    // 切换主题
-    onThemeChange: function(themeColor) {
-      this.$store.commit('setThemeColor', themeColor)
-    },
-    // 语言切换
-    changeLanguage(lang) {
-      lang === '' ? 'zh_cn' : lang
-      this.$i18n.locale = lang
-      this.langVisible = false
     }
   },
   mounted() {
@@ -110,12 +67,6 @@ export default {
       this.user.name = user
       this.user.avatar = require("@/assets/user.png")
     }
-  },
-  computed:{
-    ...mapState({
-      themeColor: state=>state.app.themeColor,
-      collapse: state=>state.app.collapse
-    })
   }
 }
 </script>
