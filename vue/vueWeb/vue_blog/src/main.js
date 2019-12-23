@@ -5,8 +5,11 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui' //引入element-ui模块
 import 'element-ui/lib/theme-chalk/index.css' //引入element-ui模块
-import api from './http/index.js'
+import api from './http'
 import i18n from './i18n' //加入i18n
+import store from './store'
+import 'font-awesome/css/font-awesome.min.css'
+import '@assets/iconfont/iconfont.css'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
@@ -17,6 +20,7 @@ new Vue({
   el: '#app',
   router,
   i18n,
+  store,
   components: { App },
   template: '<App/>'
 })
