@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui' //引入element-ui模块
 import 'element-ui/lib/theme-chalk/index.css' //引入element-ui模块
-import api from './http/index'
+import api from './http/index.js'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
