@@ -3,7 +3,6 @@
  */
 
 // 登录接口
-// 登录接口
 export function login () {
   return {
     // isOpen: false,

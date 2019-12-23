@@ -4,6 +4,12 @@ import Cookies from "js-cookie"
 import Login from '@/views/Login'
 import Index from '@/views/Index'
 import NotFound from '@/views/404'
+import Intro from '@/views/Intro'
+import User from '@/views/SysMng/User'
+import Dept from '@/views/SysMng/Dept'
+import Role from '@/views/SysMng/Role'
+import Menu from '@/views/SysMng/Menu'
+import Log from '@/views/SysMng/Log'
 
 Vue.use(Router)
 
@@ -13,7 +19,15 @@ const router = new Router({
     {
       path: '/',
       name: 'Index',
-      component: Index
+      component: Index,
+      children: [
+        { path: '', component: Intro, name: '系统介绍' },
+        { path: '/user', component: User, name: '用户管理' },
+        { path: '/dept', component: Dept, name: '机构管理' },
+        { path: '/role', component: Role, name: '角色管理' },
+        { path: '/menu', component: Menu, name: '菜单管理' },
+        { path: '/log', component: Log, name: '日志管理' }
+      ]
     },
     {
       path: '/login',
