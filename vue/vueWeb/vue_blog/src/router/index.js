@@ -8,6 +8,7 @@ import NotFound from '@/views/404'
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -35,13 +36,13 @@ router.beforeEach((to, from, next) => {
   let user = sessionStorage.getItem('user')
   if (to.path === '/login') {
     // 如果是访问登录界面，如果用户会话信息存在，代表已登录过，跳转到主页
-    if(token) {
+    if(user) {
       next({ path: '/' })
     } else {
       next()
     }
   } else {
-    if (!token) {
+    if (!user) {
       // 如果访问非登录界面，且户会话信息不存在，代表未登录，则跳转到登录界面
       next({ path: '/login' })
     } else {
