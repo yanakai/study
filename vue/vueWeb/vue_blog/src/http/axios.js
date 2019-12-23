@@ -1,5 +1,11 @@
 /**
  * 二次封装 axios 模块，包含拦截器等信息。
+ * 统一 url 配置
+  统一 api 请求
+  request (请求) 拦截器，例如：带上token等，设置请求头
+  response (响应) 拦截器，例如：统一错误处理，页面重定向等
+  根据需要，结合 Vuex 做全局的 loading 动画，或者错误处理
+  将 axios 封装成 Vue 插件使用
  */
 import axios from 'axios';
 import config from './config';
