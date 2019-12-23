@@ -10,7 +10,7 @@ import i18n from './i18n' //加入i18n
 import store from './store'
 import global from '@/utils/global'
 import 'font-awesome/css/font-awesome.min.css'
-import '@assets/iconfont/iconfont.css'
+import '@/assets/iconfont/iconfont.css'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
