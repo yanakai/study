@@ -85,7 +85,7 @@ export default {
   data() {
     return {
       user: {
-        name: "Louis",
+        name: "闫凯",
         avatar: "",
         role: "超级管理员",
         registeInfo: "注册时间：2018-12-20 "
@@ -117,7 +117,7 @@ export default {
     }
   },
   mounted() {
-    this.sysName = "Kitty Platform"
+    this.sysName = "VBlog"
     var user = sessionStorage.getItem("user")
     if (user) {
       this.user.name = user
