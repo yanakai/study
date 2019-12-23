@@ -6,6 +6,7 @@ import router from './router'
 import ElementUI from 'element-ui' //引入element-ui模块
 import 'element-ui/lib/theme-chalk/index.css' //引入element-ui模块
 import api from './http/index.js'
+import i18n from './i18n' //加入i18n
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
@@ -15,6 +16,7 @@ Vue.use(api); //以 vue 插件的形式引入 axios，这样在其他地方就�
 new Vue({
   el: '#app',
   router,
+  i18n,
   components: { App },
   template: '<App/>'
 })
