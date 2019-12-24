@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Cookies from "js-cookie"
 import Login from '@/views/Login'
 import Index from '@/views/Index'
-import NotFound from '@/views/404'
+import NotFound from '@/views/Error/404'
 import Intro from '@/views/Intro'
 import User from '@/views/SysMng/User'
 import Dept from '@/views/SysMng/Dept'
