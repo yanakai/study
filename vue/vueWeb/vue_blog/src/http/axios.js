@@ -1,15 +1,5 @@
-/**
- * 二次封装 axios 模块，包含拦截器等信息。
- * 统一 url 配置
-  统一 api 请求
-  request (请求) 拦截器，例如：带上token等，设置请求头
-  response (响应) 拦截器，例如：统一错误处理，页面重定向等
-  根据需要，结合 Vuex 做全局的 loading 动画，或者错误处理
-  将 axios 封装成 Vue 插件使用
- */
 import axios from 'axios';
 import config from './config';
-import qs from 'qs';
 import Cookies from "js-cookie";
 import router from '@/router'
 
@@ -19,10 +9,10 @@ import router from '@/router'
 export default function $axios(options) {
   return new Promise((resolve, reject) => {
     const instance = axios.create({
-      baseURL: config.baseURL,
-      headers: {},
-      transformResponse: [function (data) {
-      }]
+      baseURL: config.baseUrl,
+      headers: config.headers,
+      timeout: config.timeout,
+      withCredentials: config.withCredentials
     })
 
     // request 拦截器
@@ -34,23 +24,24 @@ export default function $axios(options) {
         // console.log('准备发送请求...')
         // 2. 带上token
         if (token) {
-          config.headers.accessToken = token
+          config.headers.token = token
         } else {
           // 重定向到登录页面
           router.push('/login')
         }
         // 3. 根据请求方法，序列化传来的参数，根据后端需求是否序列化
         if (config.method === 'post') {
-          if (config.data.__proto__ === FormData.prototype
-            || config.url.endsWith('path')
-            || config.url.endsWith('mark')
-            || config.url.endsWith('patchs')
-          ) {
+          // if (config.data.__proto__ === FormData.prototype
+          //   || config.url.endsWith('path')
+          //   || config.url.endsWith('mark')
+          //   || config.url.endsWith('patchs')
+          // ) {
 
-          } else {
-            config.data = qs.stringify(config.data)
-          }
+          // } else {
+            // config.data = qs.stringify(config.data)
+          // }
         }
+
         return config
       },
 
@@ -144,7 +135,7 @@ export default function $axios(options) {
             default:
           }
         }
-        console.error(err);
+        console.error(err)
         return Promise.reject(err) // 返回接口返回的错误信息
       }
     )
