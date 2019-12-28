@@ -49,4 +49,10 @@ export default{
 .hamburg {
   float: left;
 }
+.position-left {
+  left: 200px;
+}
+.position-collapse-left {
+  left: 65px;
+}
 </style>
