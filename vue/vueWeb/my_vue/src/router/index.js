@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import CopClass from '@/components/EnterPage'
 import Index from '@/page/index'
 import Main from '@/page/main'
 import userList from '@/page/UserList' //用户列表
@@ -13,11 +12,6 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path: '/enter/',
-      name: 'CopName',
-      component: CopClass
-    },
     {
       path: "/",
       component: Index,
