@@ -45,7 +45,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column sortable prop="createName" label="创建者" align="center"></el-table-column>
-                <el-table-column prop="lastModifyTime" :formatter="dateFormat" label="最后修改时间" align="center">
+                <el-table-column prop="lastModifyTime" label="最后修改时间" align="center">
                     <template slot-scope="scope">
                         <div>{{scope.row.lastModifyTime|timestampToDate}}</div>
                     </template>
