@@ -8,6 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css'  //引入element-ui模块
 import 'font-awesome/css/font-awesome.min.css'
 import axios from 'axios'   //引入axios 模块
 import VueAxios from 'vue-axios'  // 引入axios 模块
+import store from './store'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI) //引入element-ui模块
@@ -34,6 +35,7 @@ axios.interceptors.response.use(res => {
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
