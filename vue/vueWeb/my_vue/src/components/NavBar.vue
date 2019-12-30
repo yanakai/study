@@ -37,7 +37,7 @@ export default{
     position: fixed;
     top: 0px;
     left: 0;
-    bottom: 0;
+    bottom: 0px;
     z-index: 1020;
 }
 .menu-bar-container .logo {

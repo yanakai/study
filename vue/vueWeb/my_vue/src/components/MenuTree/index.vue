@@ -1,5 +1,5 @@
 <template>
-<div class="menu-bar-container">
+<div class="menu-bar-container" >
    <el-menu
         default-active="1"
         @open="handleOpen"  
@@ -61,11 +61,6 @@ export default{
 }
 </script>
 <style >
-.menu-bar-container .el-menu {
-    position:absolute;
-    bottom: 0px;
-    text-align: left;
-}
 
 .menu-bar-container .menu-bar-width {
     width: 200px;
