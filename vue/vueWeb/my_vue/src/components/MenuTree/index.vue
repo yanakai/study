@@ -1,5 +1,5 @@
 <template>
-<div class="menu-bar-container" >
+<div class="menu-bar" >
    <el-menu
         default-active="1"
         @open="handleOpen"  
@@ -27,7 +27,7 @@
             <el-menu-item  index="/user/list">用户管理</el-menu-item>
             <el-menu-item index="/role/list">角色管理</el-menu-item>
             <el-menu-item index="/menu/list">菜单管理</el-menu-item>
-            <el-submenu index="#">
+            <el-submenu index="2-1">
                 <template slot="title">选项4</template>
                 <el-menu-item index="#">选项1</el-menu-item>
             </el-submenu>
@@ -62,10 +62,16 @@ export default{
 </script>
 <style >
 
-.menu-bar-container .menu-bar-width {
+.menu-bar{
+    position:absolute;
+    top: 60px;
+    bottom: 0px;
+    text-align: left;
+}
+.menu-bar .menu-bar-width {
     width: 200px;
 }
-.menu-bar-container .menu-bar-collapse-width {
+.menu-bar .menu-bar-collapse-width {
     width: 65px;
 }
     
