@@ -63,10 +63,12 @@ export default{
 <style lang="scss">
 
 .menu-bar{
-    position:absolute;
-    top: 60px;
-    bottom: 0px;
-    text-align: left;   
+   > ul{
+        position:absolute;
+        bottom: 0px;
+        top: 60px;
+    }
+   
     .menu-bar-width {
         width: 200px;
     }
