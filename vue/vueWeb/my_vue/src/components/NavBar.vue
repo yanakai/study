@@ -48,6 +48,7 @@ export default{
     background: #545c64;
     cursor:pointer;
     font-size: 25px;
+    color: white;
 }
 .menu-bar-container .logo  img {
     width: 40px;
