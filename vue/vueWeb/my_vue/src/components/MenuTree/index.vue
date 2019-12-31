@@ -60,20 +60,18 @@ export default{
     },
 }
 </script>
-<style >
+<style lang="scss">
 
 .menu-bar{
     position:absolute;
     top: 60px;
     bottom: 0px;
-    text-align: left;
+    text-align: left;   
+    .menu-bar-width {
+        width: 200px;
+    }
+    .menu-bar-collapse-width {
+        width: 65px;
+    }
 }
-.menu-bar .menu-bar-width {
-    width: 200px;
-}
-.menu-bar .menu-bar-collapse-width {
-    width: 65px;
-}
-    
-   
 </style>

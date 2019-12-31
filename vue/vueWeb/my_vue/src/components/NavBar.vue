@@ -31,7 +31,7 @@ export default{
     
 }
 </script>
-<style >
+<style lang="scss" >
 .menu-bar-container{
     width: 200px;
     position: fixed;
@@ -39,31 +39,29 @@ export default{
     left: 0;
     bottom: 0px;
     z-index: 1020;
+    .logo {
+        position:absolute;
+        top: 0px;
+        height: 60px;   
+        line-height: 60px;
+        background: #545c64;
+        cursor:pointer;
+        font-size: 25px;
+        color: white;
+        text-align: center;
+        img {
+            width: 40px;
+            height: 40px;
+            border-radius: 0px;
+            margin: 10px 10px 10px 10px;
+            float: left;
+        }
+    }
+    .menu-bar-width {
+        width: 200px;
+    }
+    .menu-bar-collapse-width {
+        width: 65px;
+    }
 }
-.menu-bar-container .logo {
-    position:absolute;
-    top: 0px;
-    height: 60px;   
-    line-height: 60px;
-    background: #545c64;
-    cursor:pointer;
-    font-size: 25px;
-    color: white;
-}
-.menu-bar-container .logo  img {
-    width: 40px;
-    height: 40px;
-    border-radius: 0px;
-    margin: 10px 10px 10px 10px;
-    float: left;
-}
-
-.menu-bar-container .menu-bar-width {
-    width: 200px;
-}
-.menu-bar-container .menu-bar-collapse-width {
-    width: 65px;
-}
-    
-   
 </style>

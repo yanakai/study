@@ -10,7 +10,7 @@
         </div>
     </div>
 </template>
-<style>
+<style lang="scss">
 .main-container {
   padding: 0 5px 5px;
   position: absolute;
