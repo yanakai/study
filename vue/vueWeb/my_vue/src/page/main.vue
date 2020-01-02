@@ -1,6 +1,6 @@
 <template>
   <div id="main">
-    <h2>我这里是首页</h2>
+    <h2>我是系统介绍页面</h2>
   </div>
 </template>
 
