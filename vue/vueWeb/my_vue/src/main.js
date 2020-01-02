@@ -9,6 +9,7 @@ import 'font-awesome/css/font-awesome.min.css'
 import axios from 'axios'   //引入axios 模块
 import VueAxios from 'vue-axios'  // 引入axios 模块
 import store from './store'
+import i18n from './i18n' //加入i18n
 
 Vue.config.productionTip = false
 Vue.use(ElementUI) //引入element-ui模块
@@ -36,6 +37,7 @@ new Vue({
   el: '#app',
   router,
   store,
+  i18n,//定义全局变量
   components: { App },
   template: '<App/>'
 })
