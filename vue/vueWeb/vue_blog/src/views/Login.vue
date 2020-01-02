@@ -4,7 +4,7 @@
       <!-- 主题切换 -->
       <theme-picker style="float:right;" class="theme-picker" :default="themeColor" @onThemeChange="onThemeChange"></theme-picker>
       <!-- 语言切换 -->
-      <!-- <lang-selector class="lang-selector"></lang-selector>    -->
+      <lang-selector class="lang-selector"></lang-selector>
     </span>
     <h2 class="title" style="padding-left:22px;" >系统登录</h2>
     <el-form-item prop="account">
