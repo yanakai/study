@@ -1,16 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Login from '@/page/Login'
 import Index from '@/page/index'
 import Main from '@/page/main'
+import Cookies from "js-cookie" //引入js-cookie存放登录信息 例如当前登录用户
 import userList from '@/page/UserList' //用户列表
 import roleList from '@/page/RoleList' //角色列表
 import articleList from '@/page/ArticleList' //文章列表
 import columnList from '@/page/ColumnList' //文章列表
+import NotFound from '@/page/Error/404' //404页面
 
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history', // 去掉路由地址的#
   routes: [
     {
       path: "/",
@@ -41,6 +45,15 @@ export default new Router({
           component: columnList
         }
       ]
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },{
+      path: '/404',
+      name: 'notFound',
+      component: NotFound
     }
   ]
 })

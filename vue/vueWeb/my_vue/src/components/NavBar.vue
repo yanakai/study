@@ -6,7 +6,7 @@
             <img v-if="collapse" src="@/assets/logo.png"/> <div>{{collapse?'':appName}}</div>
         </div>
         <!-- 导航菜单树组件，动态加载菜单 -->
-           <menu-tree></menu-tree>
+        <menu-tree></menu-tree>
         
     </div>
 </template>

@@ -74,6 +74,7 @@ export default{
 .userinfo {
     line-height: 60px;
     text-align:right;
+    float: right;
 }
 .el-menu-demo .el-submenu{
     float: right;
