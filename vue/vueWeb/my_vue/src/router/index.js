@@ -7,6 +7,7 @@ import Cookies from "js-cookie" //引入js-cookie存放登录信息 例如当前
 import NotFound from '@/page/Error/404' //404页面
 
 
+
 Vue.use(Router)
 
 const router = new Router({

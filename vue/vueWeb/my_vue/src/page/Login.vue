@@ -93,7 +93,7 @@ export default {
     }
   },
   mounted() {
-    this.refreshCaptcha()
+    // this.refreshCaptcha() 先注释掉验证码
   },
   computed:{
     ...mapState({
