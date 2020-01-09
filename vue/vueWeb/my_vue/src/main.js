@@ -22,17 +22,6 @@ Object.keys(custom).forEach(key => {
     Vue.filter(key, custom[key])
 })
 
-Vue.prototype.$axios = axios
-axios.interceptors.response.use(res => {
-    if (!res.data)
-        return res
-    if (!res.data.errorCode || res.data.errorCode != 302)
-        return res
-    sessionStorage.removeItem('user')
-    location.reload()
-    return res
-})
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
