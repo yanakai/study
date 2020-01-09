@@ -64,8 +64,8 @@ export default {
   },
   props: {
     user: {
-      type: Object,
-      default: {
+      type: Object, //props验证，定义父级传的值是对象类型
+      default: { //默认值，父级没有传某个值时，由默认值替代
         name: "admin",
         avatar: "@/assets/user.png",
         role: "超级管理员",
