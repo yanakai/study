@@ -12,7 +12,7 @@
                     <template slot="title">
                         <div class='welcome'>
                             <span class="name">你好,</span>
-                            <span class='name avatarname'>闫凯</span>
+                            <span class='name avatarname'>{{user.name}}</span>
                         </div>
                         <img src="@/assets/img/avatar-2.jpg" class='avatar' alt="">
                     </template>
@@ -29,18 +29,33 @@
 import { mapState } from 'vuex'
 import mock from "@/mock/index" //此地方引入mock暂时本页面没有用，但是整个项目能够使用模拟数据接口就必须引他，可以放在任何一个vue文件引
 import Hamburger from "@/components/Hamburger"
+import Cookies from "js-cookie"
 export default{
      components:{
         Hamburger
     },
     data () {
         return {
+            user:{
+                name:'闫凯'
+            }
         }
     },
     methods:{
         // 折叠导航栏
         onCollapse: function() {
             this.$store.commit('onCollapse')
+        },
+        setDialogInfo: function(res){
+            if("logout"==res){//退出登录
+                sessionStorage.removeItem("user")//删除本地会话
+                this.deleteCookie("token") // 删除Cookie的token
+                this.$api.login.logout();
+            }
+        },
+        // 删除cookie
+        deleteCookie: function(name) { 
+            Cookies.remove(name)
         },
     },
     computed:{
