@@ -15,25 +15,25 @@ const router = new Router({
   routes: [
     {
       path: "/",
-      name: '首页',
+      name: 'Index',
       component: Index,
       // 嵌套路由
       children: [
         {
           // 这里不设置值，是把main作为默认页面
           path: '', 
-          name: '系统介绍页面',
+          name: 'Main',
           component: Main
         }
       ]
     },
     {
       path: '/login',
-      name: '登录页面',
+      name: 'Login',
       component: Login
     },{
       path: '/404',
-      name: '错误页面',
+      name: 'NotFound',
       component: NotFound
     }
   ]

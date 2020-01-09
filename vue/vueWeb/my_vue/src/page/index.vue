@@ -23,6 +23,7 @@
     import MainContent from '../components/MainContent'
 
     export default {
+        name: "Index",
         components: {
             NavBar,
             HeadBar,
