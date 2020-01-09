@@ -73,7 +73,7 @@
             <el-dialog
                 class="abow_dialog"
                 :title="addFlag?'新增文章':'修改文章'"
-                style="height:560px;text-align:left !important"
+                style="text-align:left !important"
                 :visible.sync="dialogVisible"
                 :before-close="handleClose"
             >
