@@ -27,6 +27,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import mock from "@/mock/index" //此地方引入mock暂时本页面没有用，但是整个项目能够使用模拟数据接口就必须引他，可以放在任何一个vue文件引
 import Hamburger from "@/components/Hamburger"
 export default{
      components:{
