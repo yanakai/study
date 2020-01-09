@@ -16,7 +16,7 @@
                 <i class="el-icon-document"></i>
                 <span>文章管理</span>
             </template>
-            <el-menu-item  index="/article/list">文章管理</el-menu-item>
+            <el-menu-item index="/article/list">文章管理</el-menu-item>
             <el-menu-item index="/column/list">栏目管理</el-menu-item>
         </el-submenu>
         <el-submenu index="2">

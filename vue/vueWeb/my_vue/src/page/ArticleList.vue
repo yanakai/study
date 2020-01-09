@@ -162,12 +162,11 @@ export default {
     },
     methods : {
         initArticle: function(){//文章列表初始化
-            var url = "/api/article/list/";
            var params = qs.stringify({
                pageNum:this.pageNum,
                pageSize:this.pageSize
            })
-            Vue.axios.post(url,params).then((response)=>{
+            this.$api.article.articlePage(params).then((response)=>{
                 this.articleData = response.data.rows;//写入列表数据
                 this.total = response.data.total; //写入总条数
                 this.loading=false;//关闭loading

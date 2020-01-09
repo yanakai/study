@@ -5,6 +5,7 @@ import Index from '@/page/index'
 import Main from '@/page/main'
 import Cookies from "js-cookie" //引入js-cookie存放登录信息 例如当前登录用户
 import NotFound from '@/page/Error/404' //404页面
+import articleList from '@/page/ArticleList' //文章列表
 
 
 
@@ -24,6 +25,10 @@ const router = new Router({
           path: '', 
           name: 'Main',
           component: Main
+        },{
+          path: '/article/list/',
+          name: 'articleDataList',
+          component: articleList
         }
       ]
     },
@@ -55,8 +60,8 @@ router.beforeEach((to, from, next) => {
       // 如果访问非登录界面，且户会话信息不存在，代表未登录，则跳转到登录界面
       next({ path: '/login' })
     } else {
-      // 加载动态菜单和路由
-      //addDynamicMenuAndRoutes(userName, to, from)
+      // 加载动态菜单和路由----把动态菜单添加到路由里面
+     // addDynamicMenuAndRoutes(userName, to, from)
       next()
     }
   }
