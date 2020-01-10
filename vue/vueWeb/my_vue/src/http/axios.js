@@ -31,15 +31,7 @@ export default function $axios(options) {
         }
         // 3. 根据请求方法，序列化传来的参数，根据后端需求是否序列化
         if (config.method === 'post') {
-          // if (config.data.__proto__ === FormData.prototype
-          //   || config.url.endsWith('path')
-          //   || config.url.endsWith('mark')
-          //   || config.url.endsWith('patchs')
-          // ) {
-
-          // } else {
-            // config.data = qs.stringify(config.data)
-          // }
+        
         }
 
         return config
@@ -85,14 +77,9 @@ export default function $axios(options) {
             break;
           case 0:
             store.commit('changeState')
-            // console.log('登录成功')
           default:
         }
-        // 若不是正确的返回code，且已经登录，就抛出错误
-        // const err = new Error(data.desc)
-        // err.data = data
-        // err.response = response
-        // throw err
+  
 
         return data
       },
@@ -135,7 +122,7 @@ export default function $axios(options) {
             default:
           }
         }
-        console.error(err)
+        console.error(err);
         return Promise.reject(err) // 返回接口返回的错误信息
       }
     )

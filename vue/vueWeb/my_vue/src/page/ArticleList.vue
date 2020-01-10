@@ -166,7 +166,8 @@ export default {
                pageNum:this.pageNum,
                pageSize:this.pageSize
            })
-            this.$api.article.articlePage(params).then((response)=>{
+           //this.$api.article.articlePage(params).then((response)=>{  //通过封装的js走不知道为什么会跨域
+            Vue.axios.post("/api/article/list/",params).then((response)=>{
                 this.articleData = response.data.rows;//写入列表数据
                 this.total = response.data.total; //写入总条数
                 this.loading=false;//关闭loading
